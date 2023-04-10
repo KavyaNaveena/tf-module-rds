@@ -8,6 +8,7 @@ resource "aws_rds_cluster" "main" {
   backup_retention_period = var.backup_retention_period
   preferred_backup_window = var.preferred_backup_window
   db_subnet_group_name    = aws_db_subnet_group.main.name
+  skip_final_snapshot     = true
 
   tags = merge(
     var.tags,
@@ -16,6 +17,7 @@ resource "aws_rds_cluster" "main" {
 
 resource "aws_rds_cluster_instance" "main" {
   count              = var.no_of_instances
+  engine             = var.engine
   identifier         = "${var.env}-rds-${count.index}"
   cluster_identifier = aws_rds_cluster.main.id
   instance_class     = var.instance_class
