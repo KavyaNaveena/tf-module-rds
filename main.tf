@@ -1,6 +1,6 @@
 resource "aws_rds_cluster" "main" {
   cluster_identifier      = "${var.env}-rds"
-  engine                  = "aurora-mysql"
+  engine                  = var.engine
   engine_version          = var.engine_version
   database_name           = var.database_name
   master_username         = data.aws_ssm_parameter.user.value
